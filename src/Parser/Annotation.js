@@ -13,7 +13,9 @@ Annotation.prototype.matchComments = function(dataString) {
     var matches = [];
 
     while (match = this.getMatches(regex, dataString)) {
-        matches.push(match[0].replace(/(\*|[\r\n\s])/g, ''));
+        if (match) {
+            matches.push(match[0].replace(/(\*|[\r\n\s])/g, ''));
+        }
     }
 
     var commands = this.parseCommands(matches);
@@ -40,11 +42,13 @@ Annotation.prototype.parseCommands = function(commands) {
             var regex = /@(.*)\((.*)\)/g;
 
             while (match = this.getMatches(regex, subCommands[j])) {
-               var value = (match[2]) ? match[2] : false;
+                if (match) {
+                    var value = (match[2]) ? match[2] : false;
 
-               var obj = JSON.parse('{"'+match[1]+'":'+value+'}');
+                    var obj = JSON.parse('{"'+match[1]+'":'+value+'}');
 
-               commandList.push(obj);
+                    commandList.push(obj);
+                }
             }
         }
     }
