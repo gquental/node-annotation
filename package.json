@@ -1,0 +1,18 @@
+{
+    "name": "annotation",
+    "version": "0.1.0",
+    "description": "Annotation parser for JavaScript",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": "",
+    "keywords": [
+        "annotation",
+        "parser"
+    ],
+    "author": "Guilherme Quental <guilherme@quent.al>",
+    "license": "MIT",
+    "readmeFilename": "README.md",
+    "gitHead": "719852fbc2682606fc0cf1f07c038b723ef14c3b",
+}
