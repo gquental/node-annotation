@@ -72,3 +72,7 @@ var ClassFoo = function() {
  */
 ClassFoo.prototype.test = function() {}
 ```
+
+##Installation
+
+Simply use the npm, like this: **npm install annotation**
