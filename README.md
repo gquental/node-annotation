@@ -17,7 +17,7 @@ Each annotation should follow this structure, where a name must be defined (it c
 there is some predefined annotationsName that will automatically insert annotations in one of the namespaces of the library.
 
 Those predefined names are: **Class**, **Method** and **Property**, and as you can imagine, it is used to define what annotations belongs
-to the class, properties and so on. This is needed for now due to the lack of Reflection support in JavaScript.
+to the class, properties and so on.
 
 *It's important to notice the presence of (**;**) ... this is needed to split all the annotations correctly, even when there is just one.*
 
@@ -42,4 +42,33 @@ annotation(fullFilePath, function(AnnotationReader) {
 });
 ```
 
-The complete example usage can be found in the example folder.
+Example of the commented file:
+
+```javascript
+/**
+ * @Class();
+ * @shouldBeImported();
+ * @parse(
+ *     {
+ *      "hehe": "test",
+ *      "foo": {
+ *          "value": "bar"
+ *      }
+ *     }
+ * );
+ */
+var ClassFoo = function() {
+    /**
+     * @Property("test");
+     * @test("test");
+     * @type {string}
+     */
+    this.name = 'test';
+}
+
+/**
+ * @Method("test");
+ * @testing("test");
+ */
+ClassFoo.prototype.test = function() {}
+```
