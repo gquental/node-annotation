@@ -1,14 +1,14 @@
-var Annotation = function() {
+var AnnotationParser = function() {
 
 }
 
-Annotation.prototype.parse = function(dataString, callback) {
-    var commands = this.matchComments(dataString);
+AnnotationParser.prototype.parse = function(dataString, callback) {
+    var comments = this.matchComments(dataString);
 
-    callback(commands);
+    callback(comments);
 }
 
-Annotation.prototype.matchComments = function(dataString) {
+AnnotationParser.prototype.matchComments = function(dataString) {
     var regex   = /\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/g;
     var matches = [];
 
@@ -18,12 +18,12 @@ Annotation.prototype.matchComments = function(dataString) {
         }
     }
 
-    var commands = this.parseCommands(matches);
+    var comments = this.parseComments(matches);
 
-    return commands;
+    return comments;
 }
 
-Annotation.prototype.getMatches = function(regex, dataString) {
+AnnotationParser.prototype.getMatches = function(regex, dataString) {
     var result = regex.exec(dataString);
 
     if (result) {
@@ -33,27 +33,30 @@ Annotation.prototype.getMatches = function(regex, dataString) {
     return false;
 }
 
-Annotation.prototype.parseCommands = function(commands) {
-    var commandList = [];
+AnnotationParser.prototype.parseComments = function(comments) {
+    var commentList = [];
 
-    for (var i in commands) {
-        var subCommands = commands[i].split(';');
-        for (var j in subCommands) {
+    for (var i in comments) {
+        var subComments = comments[i].split(';');
+        for (var j in subComments) {
             var regex = /@(.*)\((.*)\)/g;
 
-            while (match = this.getMatches(regex, subCommands[j])) {
+            while (match = this.getMatches(regex, subComments[j])) {
                 if (match) {
                     var value = (match[2]) ? match[2] : false;
 
-                    var obj = JSON.parse('{"'+match[1]+'":'+value+'}');
+                    var obj = {
+                        "key": match[1],
+                        "value": JSON.parse(value)
+                    };
 
-                    commandList.push(obj);
+                    commentList.push(obj);
                 }
             }
         }
     }
 
-    return commandList;
+    return commentList;
 }
 
-module.exports = Annotation;
+module.exports = AnnotationParser;
