@@ -1,24 +1,27 @@
-var AnnotationReader = function() {
-    this.ignoredGlobalNamespaces = [
-        'abstract', 'access', 'alias', 'augments', 'author', 'borrows',
-        'callback', 'classdesc', 'constant', 'constructor', 'constructs',
-        'copyright', 'default', 'deprecated', 'desc', 'enum', 'event',
-        'example', 'exports', 'external', 'file', 'fires', 'global',
-        'ignore', 'inner', 'instance', 'kind', 'lends', 'license',
-        'link', 'member', 'memberof', 'method', 'mixes', 'mixin',
-        'module', 'name', 'namespace', 'param', 'private', 'property',
-        'protected', 'public', 'readonly', 'requires', 'returns', 'see',
-        'since', 'static', 'summary', 'this', 'throws', 'todo', 'tutorial',
-        'type', 'typedef', 'variation', 'version'
-    ];
+var AnnotationBuilder = require('./../Builder/Annotation');
 
-    this.ignoredLocalNamespaces = [
-        'Class', 'Method', 'Property'
-    ];
+var AnnotationReader = function(comments) {
+    this.comments = new AnnotationBuilder(comments);
 }
 
-AnnotationReader.prototype.parse = function() {
+AnnotationReader.prototype.getClassAnnotations = function() {
+    return [].concat(this.comments.class);
+}
 
+AnnotationReader.prototype.getMethodAnnotations = function(name) {
+    if (!this.comments.methods[name]) {
+        throw new Error('The method ' + name + ' was not found between the comments');
+    }
+
+    return [].concat(this.comments.methods[name]);
+}
+
+AnnotationReader.prototype.getPropertyAnnotations = function(name) {
+    if (!this.comments.properties[name]) {
+        throw new Error('The property ' + name + ' was not found between the comments');
+    }
+
+    return [].concat(this.comments.properties[name]);
 }
 
 module.exports = AnnotationReader;
