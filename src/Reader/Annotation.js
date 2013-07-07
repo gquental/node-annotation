@@ -21,3 +21,4 @@ AnnotationReader.prototype.parse = function() {
 
 }
 
+module.exports = AnnotationReader;
