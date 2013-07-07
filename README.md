@@ -1,6 +1,6 @@
 #node-annotation - 0.1
 
-This is the first early release for this library. It's purpose is to add annotations support to JavaScript, were you will be able to relate
+This is the first early release for this library. It's purpose is to add annotations support to JavaScript, where you will be able to relate
 commands to your class, method or property, based on the comments of your file.
 
 ##How it Works
