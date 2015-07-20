@@ -14,7 +14,7 @@ AnnotationParser.prototype.matchComments = function(dataString) {
 
     while (match = this.getMatches(regex, dataString)) {
         if (match) {
-            matches.push(match[0].replace(/(\*|[\r\n\s])/g, ''));
+            matches.push(match[0].replace(/(\*|[\r\n])/g, ''));
         }
     }
 
